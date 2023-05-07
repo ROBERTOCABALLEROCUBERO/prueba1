@@ -1,0 +1,77 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+  <h1 class="text-center">Mi perfil</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mt-3">
+        <div class="card-body">
+          <h3 class="card-title text-center">Datos personales</h3>
+          <p><strong>Nombre:</strong> {{ paciente.nombre }}</p>
+          <p><strong>Apellidos:</strong> {{ paciente.apellidos }}</p>
+          <p>
+            <strong>Número de seguridad social:</strong>
+            {{ paciente.numSeguridadSocial }}
+          </p>
+          <p><strong>Teléfono:</strong> {{ paciente.telefono }}</p>
+          <p><strong>Dirección:</strong> {{ paciente.direccion }}</p>
+          <a href="/editar" class="btn btn-primary mt-3">Editar perfil</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card mt-3">
+        <div class="card-body">
+          <h3 class="card-title text-center">Mis citas</h3>
+        
+          <div class="d-flex justify-content-between">
+            <a href="/agendarcita" class="btn btn-primary mt-3"
+              >Agendar cita</a
+            >
+            <a class="btn btn-secondary mt-3 ml-2" (click)="toggleCitas()">
+              {{ showCitas ? 'Ocultar citas' : 'Ver todas las citas' }}
+            </a>
+          </div>
+          
+          <!-- Muestra las citas -->
+          <div *ngIf="showCitas">
+            <ul class="citas-list">
+              <li *ngFor="let cita of citas" class="cita-item">
+                <div class="cita-header">
+                  <span class="cita-fecha">{{ cita.fecha | date }}</span>
+                  <span class="cita-medico">{{ cita.medicoNombreCompleto }}</span>
+                </div>
+                <div class="cita-body">
+                  <span class="cita-observaciones">{{
+                    cita.observaciones
+                  }}</span>
+                </div>
+                <div class="cita-footer">
+                  <!-- Cambiamos el enlace por un botón que muestra/oculta el diagnóstico -->
+                  <button *ngIf="cita.id" class="cita-link" (click)="toggleDiagnostico(cita.id)">Mostrar diagnóstico</button>
+
+                </div>
+                <!-- Agregamos un elemento div para mostrar el diagnóstico -->
+                <div class="diagnostico" *ngIf="diagnostico && diagnostico.citaId == cita.id">
+                  <span>{{ diagnostico.valoracionEspecialista }}</span>
+                  <span>{{ diagnostico.enfermedad }}</span>
+                </div>
+                <!-- Si no hay diagnóstico, mostramos un mensaje -->
+                <div *ngIf="!diagnostico">
+                  <span>No hay diagnóstico aún</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+  <!--  <div *ngIf="proximaCita">
+              <p><strong>Fecha:</strong> {{proximaCita.fecha}}</p>
+              <p><strong>Hora:</strong> {{proximaCita.hora}}</p>
+              <p><strong>Doctor:</strong> {{proximaCita.doctor}}</p>
+            </div>
+            <div *ngIf="!proximaCita">
+              <p>No tienes citas próximamente.</p>
+            </div> -->

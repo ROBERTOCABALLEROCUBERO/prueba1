@@ -1,0 +1,51 @@
+
+<app-navbar></app-navbar>
+
+
+<div class="container">
+  <h1 class="text-center">Registro de pacientes</h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" formControlName="nombre" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="apellidos">Apellidos:</label>
+      <input type="text" id="apellidos" formControlName="apellidos" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="telefono">Teléfono:</label>
+      <input type="text" id="telefono" formControlName="telefono" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="usuario">Usuario:</label>
+      <input type="text" id="usuario" formControlName="usuario" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="clave">Clave:</label>
+      <input type="password" id="clave" formControlName="clave" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="numSeguridadSocial">Número de seguridad social:</label>
+      <input type="text" id="numSeguridadSocial" formControlName="numSeguridadSocial" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="numTarjeta">Número de tarjeta sanitaria:</label>
+      <input type="text" id="numTarjeta" formControlName="numTarjeta" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="direccion">Dirección:</label>
+      <input type="text" id="direccion" formControlName="direccion" class="form-control">
+    </div>
+
+    <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Registrar paciente</button>
+  </form>
+</div>

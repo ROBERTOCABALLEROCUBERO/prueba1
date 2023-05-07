@@ -1,0 +1,115 @@
+<app-navbar></app-navbar>
+
+<div class="button-section">
+  <button class="btn" (click)="listarPacientes()">Listar Pacientes</button>
+  <button class="btn" (click)="listarMedicos()">Listar Médicos</button>
+  <button class="btn" (click)="listarCitas()">Listar Citas</button>
+  <button class="btn" (click)="listarDiagnosticos()">Listar Diagnosticos</button>
+</div>
+
+<h2>Pacientes</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Teléfono</th>
+      <th>Dirección</th>
+      <th>Número de seguridad social</th>
+      <th>Número de tarjeta</th>
+      <th>Usuario</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let paciente of pacientes">
+      <td>{{ paciente.nombre }}</td>
+      <td>{{ paciente.apellidos }}</td>
+      <td>{{ paciente.telefono }}</td>
+      <td>{{ paciente.direccion }}</td>
+      <td>{{ paciente.numSeguridadSocial }}</td>
+      <td>{{ paciente.numTarjeta }}</td>
+      <td>{{ paciente.usuario }}</td>
+      <td>
+        <button (click)="borrarPaciente(paciente.usuario || '')">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Médicos</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Número de colegiado</th>
+      <th>Usuario</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let medico of medicos">
+      <td>{{ medico.nombre }}</td>
+      <td>{{ medico.apellidos }}</td>
+      <td>{{ medico.numColegiado }}</td>
+      <td>{{ medico.usuario }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Citas</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Fecha</th>
+      <th>Observaciones</th>
+      <th>Médico</th>
+      <th>Paciente</th>
+      <th>Enlace a diagnóstico</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cita of citas">
+      <td>{{ cita.id }}</td>
+      <td>{{ cita.fecha }}</td>
+      <td>{{ cita.observaciones }}</td>
+      <td>{{ cita.usuariomedico }}</td>
+      <td>{{ cita.usuariopaciente }}</td>
+      <td>
+        <ng-container *ngIf="cita.id === selectedCitaId">
+          <div *ngIf="selectedDiagnostico">
+            <p>Cita ID: {{ selectedDiagnostico.citaId }}</p>
+            <p>Enfermedad: {{ selectedDiagnostico.enfermedad }}</p>
+            <p>Valoración del especialista: {{ selectedDiagnostico.valoracionEspecialista }}</p>
+          </div>
+          <div *ngIf="!selectedDiagnostico">
+            <p>No se encontró diagnóstico para esta cita.</p>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="cita.id !== selectedCitaId">
+          <button (click)="cita.id !== undefined && onCitaSelected(cita.id)">Ver diagnóstico</button>
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2>Diagnosticos</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Cita ID</th>
+      <th>Enfermedad</th>
+      <th>Valoración Especialista</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let diagnostico of diagnosticos">
+      <td>{{ diagnostico.citaId }}</td>
+      <td>{{ diagnostico.enfermedad }}</td>
+      <td>{{ diagnostico.valoracionEspecialista }}</td>
+    </tr>
+  </tbody>
+</table>

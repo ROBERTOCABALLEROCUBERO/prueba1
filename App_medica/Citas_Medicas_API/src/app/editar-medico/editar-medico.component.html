@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+
+<h1 class="mb-4">Editar perfil de médico</h1>
+
+<form [formGroup]="medicoForm" (ngSubmit)="onSubmit()" class="row g-3">
+  <div class="col-md-6">
+    <label for="apellidos" class="form-label">Apellidos:</label>
+    <input type="text" id="apellidos" formControlName="apellidos" class="form-control" required>
+  </div>
+
+  <div class="col-md-6">
+    <label for="clave" class="form-label">Clave:</label>
+    <input type="password" id="clave" formControlName="clave" class="form-control" required>
+  </div>
+
+  <div class="col-md-6">
+    <label for="nombre" class="form-label">Nombre:</label>
+    <input type="text" id="nombre" formControlName="nombre" class="form-control" required>
+  </div>
+
+  <div class="col-md-6">
+    <label for="numColegiado" class="form-label">Número de colegiado:</label>
+    <input type="text" id="numColegiado" formControlName="numColegiado" class="form-control" required>
+  </div>
+
+  <div class="col-md-6">
+    <label for="usuario" class="form-label">Usuario:</label>
+    <input type="text" id="usuario" formControlName="usuario" class="form-control" required>
+  </div>
+
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+  </div>
+</form>
+
+<div *ngIf="errorMessage" class="error-message mt-3">
+  {{ errorMessage }}
+</div>

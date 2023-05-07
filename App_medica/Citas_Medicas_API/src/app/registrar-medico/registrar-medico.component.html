@@ -1,0 +1,31 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h2>Registrar médico</h2>
+    <form [formGroup]="medicoForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" formControlName="nombre" id="nombre" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" formControlName="apellidos" id="apellidos" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="numColegiado">Número de colegiado:</label>
+        <input type="text" formControlName="numColegiado" id="numColegiado" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="usuario">Usuario:</label>
+        <input type="text" formControlName="usuario" id="usuario" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="clave">Contraseña:</label>
+        <input type="password" formControlName="clave" id="clave" class="form-control" />
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" [disabled]="!medicoForm.valid">Registrar</button>
+      </div>
+      <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+    </form>
+  </div>
+  

@@ -1,0 +1,53 @@
+<body>
+    <app-navbar></app-navbar>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card mt-5">
+            <div class="card-header text-center">
+              <h3>Iniciar sesión</h3>
+            </div>
+            <div class="card-body">
+              <form (ngSubmit)="login()" #loginForm="ngForm">
+                <div class="form-group">
+                  <label for="usuario">Usuario</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="usuario"
+                    name="usuario"
+                    [(ngModel)]="data.usuario"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="clave">Clave</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="clave"
+                    name="clave"
+                    [(ngModel)]="data.clave"
+                    required
+                  />
+                </div>
+                
+                <div class="form-group text-center">
+                  <button type="submit" class="btn btn-primary">
+                    Iniciar sesión
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ <!--    <div *ngIf="auth === 'error'" class="alert alert-danger">
+      No se ha podido iniciar sesión. Intentelo otra vez.
+    </div>
+    <div *ngIf="auth === 'invalid'" class="alert alert-danger">
+      Por favor seleccione un rol antes de iniciar sesión.
+    </div> -->
+  </body>
+  

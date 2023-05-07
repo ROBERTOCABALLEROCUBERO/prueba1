@@ -1,0 +1,106 @@
+<app-navbar></app-navbar>
+<div class="container mt-5">
+  <h1 class="text-center">Mi perfil</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mt-3">
+        <div class="card-body">
+          <h3 class="card-title text-center">Datos personales</h3>
+          <p><strong>Nombre:</strong> {{ medico.nombre }}</p>
+          <p><strong>Usuario:</strong> {{ medico.usuario }}</p>
+          <p><strong>Apellidos:</strong> {{ medico.apellidos }}</p>
+          <p><strong>Número de colegiado:</strong> {{ medico.numColegiado }}</p>
+          <a href="/editarmedico" class="btn btn-primary mt-3">Editar perfil</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card mt-3">
+        <div class="card-body">
+          <h3 class="card-title text-center">Mis citas</h3>
+          <a class="btn btn-secondary mt-3 ml-2" (click)="toggleCitas()">
+            {{ showCitas ? "Ocultar citas" : "Ver todas las citas" }}
+          </a>
+        </div>
+
+        <!-- Muestra las citas -->
+        <div *ngIf="showCitas">
+          <ul class="citas-list">
+            <li *ngFor="let cita of citas" class="cita-item">
+              <div class="cita-header">
+                <span class="cita-fecha">{{ cita.fecha | date }}</span>
+                <span class="cita-paciente">{{
+                  cita.medicoNombreCompleto
+                }}</span>
+              </div>
+              <div class="cita-body">
+                <span class="cita-observaciones">{{ cita.observaciones }}</span>
+              </div>
+              <div class="cita-footer">
+                <!-- Cambiamos el enlace por un botón que muestra/oculta el diagnóstico -->
+                <button
+                  *ngIf="cita.id && !showForm"
+                  class="cita-link"
+                  (click)="toggleDiagnostico(cita.id)"
+                >
+                  Mostrar diagnóstico
+                </button>
+              </div>
+              <!-- Agregamos un elemento div para mostrar el diagnóstico -->
+              <div
+                class="diagnostico"
+                *ngIf="diagnostico && diagnostico.citaId == cita.id && !showForm"
+              >
+                <span>{{ diagnostico.valoracionEspecialista }}</span>
+                <span>{{ diagnostico.enfermedad }}</span>
+              </div>
+              <!-- Botón para mostrar el formulario -->
+              <button
+                *ngIf="!showForm && (selectedCitaId === undefined || selectedCitaId === cita.id)"
+                class="btn btn-primary"
+                (click)="showForm = true; selectedCitaId = cita.id"
+              >
+                Añadir diagnóstico
+              </button>
+
+              <!-- Formulario para añadir diagnóstico -->
+              <div class="diagnostico-form" *ngIf="showForm && selectedCitaId === cita.id">
+                <h4>Añadir diagnóstico</h4>
+                <form>
+                  <div class="form-group">
+                    <label for="enfermedad">Enfermedad</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="enfermedad"
+                      name="enfermedad"
+                      [(ngModel)]="diagnostico.enfermedad"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="valoracionEspecialista">Valoración del especialista</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="valoracionEspecialista"
+                      name="valoracionEspecialista"
+                      [(ngModel)]="diagnostico.valoracionEspecialista"
+                    />
+                  </div>
+                  <button type="button" class="btn btn-primary" (click)="addDiagnostico(cita)">Añadir</button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    (click)="showForm = false; selectedCitaId = undefined; hideDiagnostico()"
+                  >
+                    Cancelar
+                  </button>
+                </form>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
